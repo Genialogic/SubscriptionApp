@@ -13,7 +13,11 @@ import "./index.css";
 import Dashboard from "./routes/dashboard";
 import Home from "./routes/home";
 import { ThemeProvider } from "./components/theme/theme-provider";
-import Plans from "./routes/plans";
+import Services from "./routes/services";
+import Clients from "./routes/clients";
+import ClientsDetail from "./routes/clients/detail";
+import Login from "./routes/auth/login";
+import Register from "./routes/auth/register";
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -56,10 +60,26 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/planos",
+        path: "/servicos",
         element: (
           <PageTransition>
-            <Plans />
+            <Services />
+          </PageTransition>
+        ),
+      },
+      {
+        path: "/clientes",
+        element: (
+          <PageTransition>
+            <Clients />
+          </PageTransition>
+        ),
+      },
+      {
+        path: "/clientes/:id",
+        element: (
+          <PageTransition>
+            <ClientsDetail />
           </PageTransition>
         ),
       },
@@ -70,8 +90,8 @@ const router = createBrowserRouter([
     path: "/",
     element: <Outlet />,
     children: [
-      /* { path: "/login", element: <Login /> },
-      { path: "/registro", element: <Register /> }, */
+      { path: "/login", element: <Login /> },
+      { path: "/registro", element: <Register /> },
     ],
   },
 ]);
