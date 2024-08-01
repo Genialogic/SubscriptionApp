@@ -2,11 +2,25 @@ import Separator from "@/components/separator";
 import SidebarItem from "@/components/sidebarItem";
 import ThemeSelector from "@/components/theme/selector";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, EllipsisVertical } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  LogOut,
+  Settings,
+  User,
+} from "lucide-react";
 import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import items from "./routes";
 
 const variantsJustify = {
@@ -22,7 +36,9 @@ const variantsJustify = {
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const isCurrentPath = (path: string) => location.pathname === path;
+  const location = useLocation();
+  const isCurrentPath = (path: string) =>
+    `/${location.pathname.split("/")[1]}` === path;
 
   return (
     <div className="flex !max-w-full">
@@ -78,28 +94,46 @@ export default function Dashboard() {
           </div>
 
           {isSidebarOpen ? (
-            <div className="absolute left-0 bottom-0 w-full h-20 px-4">
+            <div className="absolute left-0 bottom-0 w-full h-20 px-2 flex flex-col gap-2">
               <Separator />
-              <div className="h-full flex items-center justify-between px-2">
-                <div className="flex gap-2 items-center">
-                  <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                  <div
-                    className={clsx("leading-4", {
-                      "": isSidebarOpen,
-                      "w-1": !isSidebarOpen,
-                    })}
-                  >
-                    <p>John doe</p>
-                    <span className="text-xs">john@doe.com</span>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <div className="h-full flex items-center justify-between px-4 py-2 transition hover:bg-slate-100 cursor-pointer rounded">
+                    <div className="flex gap-3 items-center">
+                      <Avatar>
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                      <div
+                        className={clsx("leading-4", {
+                          "": isSidebarOpen,
+                          "w-1": !isSidebarOpen,
+                        })}
+                      >
+                        <p className="text-left">John doe</p>
+                        <span className="text-xs">john@doe.com</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="cursor-pointer">
-                  <EllipsisVertical size={20} />
-                </div>
-              </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-[175px]">
+                  <DropdownMenuLabel>John Doe</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Meu perfil</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Configurações</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Desconectar</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           ) : (
             <div className="absolute left-0 bottom-0 w-full h-20 px-2">
@@ -114,8 +148,10 @@ export default function Dashboard() {
           )}
         </ul>
       </div>
-      <main className="w-full p-2">
-        <Outlet />
+      <main className="w-full min-h-screen p-2">
+        <div className="min-h-full p-4">
+          <Outlet />
+        </div>
       </main>
     </div>
   );

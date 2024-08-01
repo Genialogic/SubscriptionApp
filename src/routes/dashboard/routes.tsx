@@ -1,4 +1,4 @@
-import { Gem, Home } from "lucide-react";
+import { Gem, Home, Users } from "lucide-react";
 
 const items = [
   {
@@ -8,8 +8,13 @@ const items = [
   },
   {
     icon: Gem,
-    label: "Planos",
-    path: "/planos",
+    label: "Serviços",
+    path: "/servicos",
+  },
+  {
+    icon: Users,
+    label: "Clientes",
+    path: "/clientes",
   },
 ];
 

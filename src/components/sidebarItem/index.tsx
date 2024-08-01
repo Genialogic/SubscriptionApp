@@ -46,7 +46,7 @@ export default function SidebarItem({
   return (
     <motion.li
       className={`flex rounded items-center justify-between cursor-pointer transition px-4 py-2 ${
-        active ? "bg-primary" : "hover:bg-slate-100"
+        active ? "bg-primary" : "hover:bg-slate-100 dark:hover:bg-slate-800"
       }`}
       initial={isSidebarOpen ? "open" : "closed"}
       animate={isSidebarOpen ? "open" : "closed"}
@@ -55,14 +55,14 @@ export default function SidebarItem({
       <div className="flex items-center gap-2">
         {React.createElement(icon, {
           size: isSidebarOpen ? 18 : 20,
-          className: `${
+          className: `dark:text-white ${
             active
               ? "text-background"
               : "text-slate-600 transition-all duration-200"
           }`,
         })}
         <motion.p
-          className={`select-none overflow-hidden whitespace-nowrap text-ellipsis ${
+          className={`select-none overflow-hidden whitespace-nowrap text-ellipsis dark:text-white ${
             active ? "text-background" : "text-slate-600"
           }`}
           initial={isSidebarOpen ? "open" : "closed"}
